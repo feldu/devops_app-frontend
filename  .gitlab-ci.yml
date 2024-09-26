@@ -1,0 +1,44 @@
+stages:
+  - build
+  - test
+
+variables:
+  CACHE_DIR: .cache
+  ARTIFACTS_DIR: build
+  CI: "false"
+
+default:
+  image: node:8.19.1
+  tags:
+    - npm
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+      - .cache/
+
+before_script:
+  - npm ci
+
+build:
+  stage: build
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - dist
+  only:
+    - master
+  allow_failure: true
+  tags:
+    - itmolabs
+
+test:
+  stage: test
+  script:
+    - npm run test
+  needs: [ ]
+  only:
+    - master
+  tags:
+    - itmolabs
