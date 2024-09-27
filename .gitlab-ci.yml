@@ -20,21 +20,27 @@ before_script:
 build:
   stage: build
   script:
+    - echo Build job started
+    - echo ls -l
+    - ls -l
     - npm run build
+    - echo ls -l build
+    - ls -l build
+    - echo Build job completed
   artifacts:
     paths:
       - build/
   only:
     - master
-  allow_failure: true
   tags:
     - itmolabs
 
 test:
   stage: test
   script:
-    - npm run test -- --watchAll=false
-  needs: [ ]
+    - echo Test job started
+    - npm run test --watchAll=false
+    - echo Test job completed
   only:
     - master
   tags:
