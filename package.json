@@ -54,6 +54,6 @@
   },
   "devDependencies": {
     "@chakra-ui/core": "^0.8.0",
-    "react-router-dom": "^6.2.1"
+    "react-router-dom": "^6.26.2"
   }
 }
