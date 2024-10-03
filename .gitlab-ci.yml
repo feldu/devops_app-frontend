@@ -31,7 +31,7 @@ build:
     paths:
       - build/
   only:
-    - master
+    - lab4
   tags:
     - itmolabs
 
@@ -42,7 +42,7 @@ test:
     - npm run test --watchAll=false
     - echo Test job completed
   only:
-    - master
+    - lab4
   tags:
     - itmolabs
 
@@ -62,7 +62,9 @@ sonarqube-check:
     - sonar-scanner
   allow_failure: true
   rules:
-    - if: $CI_COMMIT_BRANCH == 'master'
+    - if: $CI_COMMIT_BRANCH == 'lab4'
+  only:
+    - lab4
   tags:
     - itmolabs
 
@@ -79,6 +81,8 @@ push:
       --destination "cr.yandex/crp92ekqp3bdhvvp7ffm/frontend-image:latest"
   needs:
     [ "build" ]
+  only:
+    - lab4
   tags:
     - itmolabs
 
@@ -90,5 +94,7 @@ deploy:
     - kubectl rollout restart deployment frontend -n default
   needs:
     [ "push" ]
+  only:
+    - lab4
   tags:
     - itmolabs
